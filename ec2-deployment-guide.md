@@ -31,7 +31,7 @@ sudo systemctl enable docker
 # Add user to docker group (to run without sudo)
 sudo usermod -a -G docker ec2-user  # Amazon Linux
 # OR
-sudo usermod -a -G docker ubuntu  # Ubuntu
+sudo usermod -a -G docker ubuntu  # Ubuntus
 
 # Log out and log back in for group changes to take effect
 exit
