@@ -4,17 +4,17 @@ FROM golang:1.21-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy go mod files
+# Copy go mod files from root
 COPY go.mod go.sum ./
 
 # Download dependencies
 RUN go mod download
 
-# Copy the specific server source code
-COPY cmd/http-server/ ./cmd/http-server/
+# Copy the entire source code since we need access to the cmd structure
+COPY . .
 
-# Build HTTP server from the specific directory
-RUN go build -o http-server ./cmd/http-server
+# Build HTTP server from the specific directory with explicit architecture
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o http-server ./cmd/http-server
 
 FROM alpine:latest
 

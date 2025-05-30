@@ -4,17 +4,17 @@ FROM golang:1.21-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy go mod files
+# Copy go mod files from root
 COPY go.mod go.sum ./
 
 # Download dependencies
 RUN go mod download
 
-# Copy the specific server source code
-COPY cmd/ws-server/ ./cmd/ws-server/
+# Copy the entire source code since we need access to the cmd structure
+COPY . .
 
-# Build WebSocket server from the specific directory
-RUN go build -o ws-server ./cmd/ws-server
+# Build WebSocket server from the specific directory with explicit architecture
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ws-server ./cmd/ws-server
 
 # Use minimal image for runtime
 FROM alpine:latest

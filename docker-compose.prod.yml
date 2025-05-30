@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   http-server:
     image: likhith2005/test-multistage-golang:http-server
