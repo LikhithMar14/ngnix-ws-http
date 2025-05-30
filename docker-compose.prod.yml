@@ -1,6 +1,7 @@
 services:
   http-server:
     image: likhith2005/test-multistage-golang:http-server
+    platform: linux/amd64
     ports:
       - "8080:8080"
     restart: unless-stopped
@@ -9,6 +10,7 @@ services:
 
   ws-server:
     image: likhith2005/test-multistage-golang:ws-server
+    platform: linux/amd64
     ports:
       - "8081:8081"
     restart: unless-stopped
